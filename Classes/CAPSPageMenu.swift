@@ -324,7 +324,7 @@ extension CAPSPageMenu {
      
      - parameter index: Index of the page to move to
      */
-    open func moveToPage(_ index: Int) {
+    open func moveToPage(_ index: Int, duration : Double = Double(configuration.scrollAnimationDurationOnMenuItemTap) / Double(1000)) {
         if index >= 0 && index < controllerArray.count {
             // Update page if changed
             if index != currentPageIndex {
@@ -351,9 +351,6 @@ extension CAPSPageMenu {
                 // Add page from which tap is initiated so it can be removed after tap is done
                 pagesAddedDictionary[lastPageIndex] = lastPageIndex
             }
-            
-            // Move controller scroll view when tapping menu item
-            let duration : Double = Double(configuration.scrollAnimationDurationOnMenuItemTap) / Double(1000)
             
             UIView.animate(withDuration: duration, animations: { () -> Void in
                 let xOffset : CGFloat = CGFloat(index) * self.controllerScrollView.frame.width
