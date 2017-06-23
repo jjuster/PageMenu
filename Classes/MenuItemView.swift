@@ -71,8 +71,8 @@ class MenuItemView: UIView {
             self.titleLabel!.text = controller.title!
             self.titleLabel!.isHidden = false
             self.imageView!.isHidden = true
-        } else if controller.titleView != nil {
-            self.imageView!.addSubview(controller.titleView!)
+        } else if controller.navigationItem.titleView != nil {
+            self.imageView!.addSubview(controller.navigationItem.titleView!)
             controller.titleView!.frame = self.imageView!.bounds
             self.titleLabel!.isHidden = true
             self.imageView!.isHidden = false
