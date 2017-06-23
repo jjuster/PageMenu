@@ -12,10 +12,12 @@ class MenuItemView: UIView {
     // MARK: - Menu item view
     
     var titleLabel : UILabel?
+    var imageView : UIView?
     var menuItemSeparator : UIView?
     
     func setUpMenuItemView(_ menuItemWidth: CGFloat, menuScrollViewHeight: CGFloat, indicatorHeight: CGFloat, separatorPercentageHeight: CGFloat, separatorWidth: CGFloat, separatorRoundEdges: Bool, menuItemSeparatorColor: UIColor) {
         titleLabel = UILabel(frame: CGRect(x: 0.0, y: 0.0, width: menuItemWidth, height: menuScrollViewHeight - indicatorHeight))
+        imageView = UIView(frame: CGRect(x: 0.0, y: 0.0, width: menuItemWidth, height: menuScrollViewHeight - indicatorHeight))
         
         menuItemSeparator = UIView(frame: CGRect(x: menuItemWidth - (separatorWidth / 2), y: floor(menuScrollViewHeight * ((1.0 - separatorPercentageHeight) / 2.0)), width: separatorWidth, height: floor(menuScrollViewHeight * separatorPercentageHeight)))
         menuItemSeparator!.backgroundColor = menuItemSeparatorColor
@@ -28,6 +30,7 @@ class MenuItemView: UIView {
         self.addSubview(menuItemSeparator!)
         
         self.addSubview(titleLabel!)
+        self.addSubview(imageView!)
     }
     
     func setTitleText(_ text: NSString) {
@@ -37,7 +40,7 @@ class MenuItemView: UIView {
             titleLabel!.sizeToFit()
         }
     }
-    
+        
     func configure(for pageMenu: CAPSPageMenu, controller: UIViewController, index: CGFloat) {
         if pageMenu.configuration.useMenuLikeSegmentedControl {
             //**************************拡張*************************************
@@ -66,8 +69,17 @@ class MenuItemView: UIView {
         // Set title depending on if controller has a title set
         if controller.title != nil {
             self.titleLabel!.text = controller.title!
+            self.titleLabel!.isHidden = false
+            self.imageView!.isHidden = true
+        } else if controller.titleView != nil {
+            self.imageView!.addSubview(controller.titleView!)
+            controller.titleView!.frame = self.imageView!.bounds
+            self.titleLabel!.isHidden = true
+            self.imageView!.isHidden = false
         } else {
             self.titleLabel!.text = "Menu \(Int(index) + 1)"
+            self.titleLabel!.isHidden = false
+            self.imageView!.isHidden = true            
         }
         
         // Add separator between menu items when using as segmented control
