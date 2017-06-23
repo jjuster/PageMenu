@@ -73,7 +73,7 @@ class MenuItemView: UIView {
             self.imageView!.isHidden = true
         } else if controller.navigationItem.titleView != nil {
             self.imageView!.addSubview(controller.navigationItem.titleView!)
-            controller.titleView!.frame = self.imageView!.bounds
+            controller.navigationItem.titleView!.frame = self.imageView!.bounds
             self.titleLabel!.isHidden = true
             self.imageView!.isHidden = false
         } else {
